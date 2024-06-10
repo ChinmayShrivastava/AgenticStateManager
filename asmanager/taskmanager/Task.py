@@ -1,6 +1,9 @@
-from asmanager.statemanager.StateManager import StateManager, State
-from asmanager.environment.Environment import Environment
+import asyncio̦
+
 from asmanager.actions.Actions import Actions
+from asmanager.environment.Environment import Environment
+from asmanager.statemanager.StateManager import State, StateManager
+
 
 class Task:
     def __init__(
@@ -20,6 +23,21 @@ class Task:
         
         self.actions = actions if actions is not None \
             else Actions()
+        
+        ###
+        self._initialized = False
 
     def __str__(self):
         return self.task
+    
+    def generate_steps(self):
+        self._generate_steps()
+        self._initialized = True
+        pass
+
+    async def agenerate_steps(self):
+        await self._agenerate_steps()
+        self._initialized = True
+        pass
+
+    # code to complete steps iteratively
